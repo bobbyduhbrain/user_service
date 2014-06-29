@@ -19,15 +19,21 @@ func main(){
   sessionsController := new(controllers.SessionsController)
   
   //* 
-  //  Martini
+  //  Martini config
   //*
   m := martini.Classic()
   m.Use(render.Renderer(render.Options{
-    Directory: "templates",
+    Directory: "views",
     Layout:    "layout",
   }))
   m.Use(PopulateAppContext)
-  m.Get("/", sessionsController.New)
+
+  //*
+  //  Routes
+  //*
+  m.Get("/",              sessionsController.New)
+  m.Get("/sessions/new",  sessionsController.New)
+
   m.Run()
 }
 
